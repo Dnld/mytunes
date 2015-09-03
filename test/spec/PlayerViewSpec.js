@@ -42,8 +42,6 @@ describe('PlayerView', function() {
       songQueue.add(secondSong);
       songQueue.add(thirdSong);
       // play the first song
-      // console.log('test first:', firstSong);
-      // console.log('test songQueue:', songQueue);
       songQueue.playFirst();
       expect(appView.playerView.model).to.equal(firstSong);
       // Simulate the end of the first song
@@ -52,6 +50,21 @@ describe('PlayerView', function() {
       // Simulate the end of the second song
       $(appView.playerView.el).trigger('ended');
       expect(appView.playerView.model).to.equal(thirdSong);
+    });
+
+    it('removes clicked tracks from the song queue', function(){
+      var firstSong = library.at(0)
+      , secondSong = library.at(1)
+      , thirdSong = library.at(2)
+      , songQueue = appView.model.get('songQueue')
+      , songQueueView = appView.songQueueView
+      // Set up a queue of three songs
+      songQueue.add(firstSong);
+      songQueue.add(secondSong);
+      songQueue.add(thirdSong);
+      // Click the last song
+      songQueueView.$el.find('tbody').children().last().click();
+      expect(songQueue.length).to.equal(2);
     });
   });
 
