@@ -7,10 +7,8 @@ var PlayerView = Backbone.View.extend({
 
   events: {
     'ended': function() {
-      this.model.ended();
+      this.model.dequeue();
     }
-    // Why doesn't this work?
-    // 'ended': this.model.ended.bind(this)
   },
 
   setSong: function(song){
